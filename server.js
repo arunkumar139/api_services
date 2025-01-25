@@ -13,13 +13,8 @@ const db = mysql.createPool({
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: true } : null, // Optional SSL support
 });
 
-// Decorate Fastify with the database connection
-fastify.decorate('db', db);
-
-// Register CORS plugin
-fastify.register(cors, {
-  origin: '*',  // Allow all origins (you can restrict it to specific origins)
-});
+fastify.register(cors, { origin: '*' }); // Register CORS
+fastify.decorate('db', db);   
 
 // Default route
 fastify.get("/", () => "Report API is running");
